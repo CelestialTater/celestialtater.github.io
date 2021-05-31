@@ -21,16 +21,16 @@ async function startGame(){
     document.getElementById("intro").style.display = "none"
     myGameArea.start()
     // ---- ACTUAL URLS ----
-    // icon = new component(30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
-    // photon1 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
-    // photon2 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
-    // photon3 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
+    icon = new component("icon", 30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
+    photon1 = new component("photon1", 30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
+    photon2 = new component("photon2", 30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
+    photon3 = new component("photon3", 30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
     
     // ---- TESTING URLS ----
-    icon = new component("icon", 30, 30, "http://127.0.0.1:5500/electron.png", 10, 190, "image");
-    photon1 = new component("photon1", 30, 30, "http://127.0.0.1:5500/photonwave.png", p1X, p1Y, "image", 3);
-    photon2 = new component("photon2", 30, 30, "http://127.0.0.1:5500/photonwave.png", p2X, p2Y, "image", 4);
-    photon3 = new component("photon3", 30, 30, "http://127.0.0.1:5500/photonwave.png", p3X, p3Y, "image", 5);
+    // icon = new component("icon", 30, 30, "http://127.0.0.1:5500/electron.png", 10, 190, "image");
+    // photon1 = new component("photon1", 30, 30, "http://127.0.0.1:5500/photonwave.png", p1X, p1Y, "image", 3);
+    // photon2 = new component("photon2", 30, 30, "http://127.0.0.1:5500/photonwave.png", p2X, p2Y, "image", 4);
+    // photon3 = new component("photon3", 30, 30, "http://127.0.0.1:5500/photonwave.png", p3X, p3Y, "image", 5);
     photonCoords = [
         [p1X, p1Y, photon1],
         [p2X, p2Y, photon2],
