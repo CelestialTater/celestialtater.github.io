@@ -7,20 +7,30 @@ var p2Y = Math.floor(Math.random() * 350 + 10);
 var p3X = Math.floor(Math.random() * 350 + 10);
 var p3Y = Math.floor(Math.random() * 350 + 10);
 var count = 0;
+var time = 0;
 var electronEnergy = 0
 var photonCoords;
-console.log(p1X);
-console.log(p1Y);
+var canvasRef;
 
 async function startGame(){
     await sleep(1000)
-    //document.getElementById("introimg").src="http://127.0.0.1:5500/JS%20game/electron.png";
+    //document.getElementById("introimg").src="http://celestialtater.github.io/electron.png";
     document.getElementById("introimg").style.display = "none"
+    document.getElementById("start").style.display = "none"
+    document.getElementById("energylv").innerHTML = "Energy Level: 0 eV"
+    document.getElementById("intro").style.display = "none"
     myGameArea.start()
-    icon = new component(30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
-    photon1 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
-    photon2 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
-    photon3 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
+    // ---- ACTUAL URLS ----
+    // icon = new component(30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
+    // photon1 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
+    // photon2 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
+    // photon3 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
+    
+    // ---- TESTING URLS ----
+    icon = new component("icon", 30, 30, "http://127.0.0.1:5500/electron.png", 10, 190, "image");
+    photon1 = new component("photon1", 30, 30, "http://127.0.0.1:5500/photonwave.png", p1X, p1Y, "image", 3);
+    photon2 = new component("photon2", 30, 30, "http://127.0.0.1:5500/photonwave.png", p2X, p2Y, "image", 4);
+    photon3 = new component("photon3", 30, 30, "http://127.0.0.1:5500/photonwave.png", p3X, p3Y, "image", 5);
     photonCoords = [
         [p1X, p1Y, photon1],
         [p2X, p2Y, photon2],
@@ -56,7 +66,8 @@ let myGameArea = {
     },
 
 }
-function component(width, height, color, x, y, type="default", energy=0){
+function component(id, width, height, color, x, y, type="default", energy=0){
+    this.id = id;
     this.width = width;
     this.height = height;
     this.x = x;
@@ -99,17 +110,23 @@ function updateGameArea(){
     myGameArea.clear();
     icon.speedX = 0;
     icon.speedY = 0;
+    if(count % 7 == 0) {
+        randomMove(photon1)
+        randomMove(photon2)
+        randomMove(photon3)
+        
+    }
     photon1.update()
     photon2.update()
     photon3.update()
-    if (myGameArea.keys && myGameArea.keys[37] && icon.x > 10) {icon.speedX = -1; }
-    if (myGameArea.keys && myGameArea.keys[39] && icon.x < 360) {icon.speedX = 1; }
-    if (myGameArea.keys && myGameArea.keys[38] && icon.y > 10) {icon.speedY = -1; }
-    if (myGameArea.keys && myGameArea.keys[40] && icon.y < 360) {icon.speedY = 1; }
+    if (myGameArea.keys && myGameArea.keys[37] && icon.x > 10) {icon.speedX = -2; }
+    if (myGameArea.keys && myGameArea.keys[39] && icon.x < 360) {icon.speedX = 2; }
+    if (myGameArea.keys && myGameArea.keys[38] && icon.y > 10) {icon.speedY = -2; }
+    if (myGameArea.keys && myGameArea.keys[40] && icon.y < 360) {icon.speedY = 2; }
     icon.newPos();
     icon.update();
     for(var c of photonCoords) {
-        if(icon.x - c[0] < 5 && icon.x - c[0] > -5 && icon.y - c[1] < 5 && icon.y - c[1] > -5) {
+        if(icon.x - c[0] < 10 && icon.x - c[0] > -10 && icon.y - c[1] < 10 && icon.y - c[1] > -10) {
             electronEnergy += c[2].energy
              c[2].delete()
              c[2].update()
@@ -118,7 +135,13 @@ function updateGameArea(){
              console.log(electronEnergy)
         }
     }
+    document.getElementById("time").innerHTML = "Time: " + time + "ms"
     count++
+    time += 20
+    
+    if(time > 1000) {
+        //myGameArea.canvas.remove();
+    }
     
 }
 
@@ -139,14 +162,45 @@ function clearmove(obj){
     obj.speedY = 0; 
 }
 function randomMove(obj) {
+    var loc;
+    var hit = false;
+    var valid = true;
     xdist = Math.floor(Math.random() * 21 - 10)
     ydist = Math.floor(Math.random() * 21 - 10)
-    for(t = 0; t < 5; t++){
-        if(obj.x > 10 && obj.x < 360) {
-            obj.x += xdist/5
+    console.log(obj.id)
+    for(var b = 0; b < photonCoords.length; b++) {
+        if(obj.id == photonCoords[b][2].id){
+            loc = b;
+            hit = true;
         }
-        if(obj.y > 10 && obj. y < 360) {
-            obj.y += ydist/5
+    }
+    if(!hit) {
+        valid = false;
+    }
+    if(valid) {
+        for(t = 0; t < 5; t++){
+            if(xdist >= 0) {
+                if(obj.x < 350) {
+                    obj.x += xdist/5
+                    photonCoords[loc][0] = obj.x
+                }
+            }else{
+                if(obj.x > 20) {
+                    obj.x += xdist/5
+                    photonCoords[loc][0] = obj.x
+                }
+            }
+            if(ydist > 0) {
+                if(obj.y < 350) {
+                    obj.y += ydist/5
+                    photonCoords[loc][1] = obj.y
+                }
+            }else{
+                if(obj.y > 20) {
+                    obj.y += ydist/5
+                    photonCoords[loc][1] = obj.y
+                }
+            }
         }
     }
 }

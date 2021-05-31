@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <img src="bucket.png" id="introimg"></img>
-        <style>
-            canvas{
-                border: 1px solid #d3d3d3;
-                background-color: #c1c1c4;
-            }
-        </style>
-        
+        <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body onload="startGame()">
-        <div></div>
-        <h1 id = "energylv">Energy Level: 0 eV</h1>
+    <title>Electron Mania</title>
+    <body>
+        <img src="bucket.png" id="introimg" class="centerimg"></img>
+        <p id="intro"><b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!</p>
+        <div class = "centerbtn">
+            <button id = "start" onclick="startGame()" class="button1"> I'm Ready! </button>
+        </div>
+        <p id="physinfo"><b>About the Bohr Model:</b><br> The Bohr model of the atom...... </p>
+        <h1 id = "energylv"></h1>
+        <h2 id = "time"></h2>
         <script src="game.js"></script>
     </body>
 </html>
