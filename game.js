@@ -16,10 +16,10 @@ async function startGame(){
     //document.getElementById("introimg").src="http://127.0.0.1:5500/JS%20game/electron.png";
     document.getElementById("introimg").style.display = "none"
     myGameArea.start()
-    icon = new component(30, 30, "http://celestialtater.github.io/electron.png", 10, 190, "image");
-    photon1 = new component(30, 30, "http://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
-    photon2 = new component(30, 30, "http://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
-    photon3 = new component(30, 30, "http://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
+    icon = new component(30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
+    photon1 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
+    photon2 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
+    photon3 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
     photonCoords = [
         [p1X, p1Y, photon1],
         [p2X, p2Y, photon2],
@@ -70,7 +70,7 @@ function component(width, height, color, x, y, type="default", energy=0){
     this.update = function(){
         ctx = myGameArea.context;
         if(type == "image"){
-            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+            this.image.onload = function() {ctx.drawImage(this.image, this.x, this.y, this.width, this.height);}
             ctx.font = "20px Arial"
             if(energy != 0) {
                 ctx.fillText(energy, this.x + 10, this.y+20)
