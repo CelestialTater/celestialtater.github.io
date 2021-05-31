@@ -1,3 +1,4 @@
+//VER: 0.1
 var icon;
 var p1X = Math.floor(Math.random() * 350 + 10);
 var p1Y = Math.floor(Math.random() * 350 + 10);
@@ -16,10 +17,10 @@ async function startGame(){
     //document.getElementById("introimg").src="http://127.0.0.1:5500/JS%20game/electron.png";
     document.getElementById("introimg").style.display = "none"
     myGameArea.start()
-    icon = new component(30, 30, "https://drive.google.com/file/d/15bPkKXHb_ucNRn9ffnJx-R17hRp9JZ9U/view?usp=sharing", 10, 190, "image");
-    photon1 = new component(30, 30, "https://drive.google.com/file/d/15bPkKXHb_ucNRn9ffnJx-R17hRp9JZ9U/view?usp=sharing", p1X, p1Y, "image", 3);
-    photon2 = new component(30, 30, "https://drive.google.com/file/d/15bPkKXHb_ucNRn9ffnJx-R17hRp9JZ9U/view?usp=sharing", p2X, p2Y, "image", 4);
-    photon3 = new component(30, 30, "https://drive.google.com/file/d/15bPkKXHb_ucNRn9ffnJx-R17hRp9JZ9U/view?usp=sharing", p3X, p3Y, "image", 5);
+    icon = new component(30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
+    photon1 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
+    photon2 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
+    photon3 = new component(30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
     photonCoords = [
         [p1X, p1Y, photon1],
         [p2X, p2Y, photon2],
