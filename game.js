@@ -70,7 +70,7 @@ function component(width, height, color, x, y, type="default", energy=0){
     this.update = function(){
         ctx = myGameArea.context;
         if(type == "image"){
-            this.image.onload = function() {ctx.drawImage(this.image, this.x, this.y, this.width, this.height);}
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
             this.image.src = color;   
             ctx.font = "20px Arial"
             if(energy != 0) {
