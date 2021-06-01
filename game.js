@@ -12,7 +12,7 @@ var goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (start
 var energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
 var count = 0;
 var time = 10000;
-var electronEnergy = 0
+var electronEnergy = energyLevelArray[startingLevel-1]
 var photonCoords;
 var canvasRef;
 
@@ -29,9 +29,10 @@ function gameIntro() {
 async function startGame(){
     await sleep(1000)
     //document.getElementById("introimg").src="http://celestialtater.github.io/electron.png";
-
+    document.getElementById("intro").style.display = "none"
+    document.getElementById("introimg").style.display = "none"
     document.getElementById("start2").style.display = "none"
-    document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1] + " eV"
+    document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1].toFixed(2) + " eV"
 
 
     myGameArea.start()
@@ -146,7 +147,7 @@ function updateGameArea(){
              c[2].delete()
              c[2].update()
              photonCoords.splice(photonCoords.indexOf(c), 1)
-             document.getElementById("energynum").innerHTML = "Energy Level: " + electronEnergy + " eV"
+             document.getElementById("energynum").innerHTML = "Current Energy: " + electronEnergy.toFixed(2) + " eV"
              console.log(electronEnergy)
         }
     }
