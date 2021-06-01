@@ -7,16 +7,24 @@ var p2Y = Math.floor(Math.random() * 350 + 10);
 var p3X = Math.floor(Math.random() * 350 + 10);
 var p3Y = Math.floor(Math.random() * 350 + 10);
 
-var startingLevel = Math.ceil(Math.random() * 5)
-var goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
-var energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
-var count = 0;
-var time = 10000;
-var electronEnergy = energyLevelArray[startingLevel-1]
+var startingLevel;
+var goalLevel;
+var energyLevelArray;
+var count;
+var time;
+var electronEnergy;
 var photonCoords;
 var canvasRef;
 
 function gameIntro() {
+    startingLevel = Math.ceil(Math.random() * 5)
+    goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
+    energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
+    count = 0;
+    time = 10000;
+    electronEnergy = energyLevelArray[startingLevel-1]
+    document.getElementById("energylv").style.display = "block";
+    document.getElementById("energygoal").style.display = "block";
     document.getElementById("intro").innerHTML = "Pay close attention to this information! Determine how much energy you will need, then click the button!"
     document.getElementById("physinfo").style.display = "none"
     document.getElementById("introimg").src = "https://celestialtater.github.io/energylevels.png"
@@ -32,6 +40,8 @@ async function startGame(){
     document.getElementById("intro").style.display = "none"
     document.getElementById("introimg").style.display = "none"
     document.getElementById("start2").style.display = "none"
+    document.getElementById("energynum").style.display = "block"
+    document.getElementById("time").style.display = "block"
     document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1].toFixed(2) + " eV"
 
 
@@ -79,6 +89,10 @@ let myGameArea = {
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop: function() {
+        this.canvas.remove();
+        clearInterval(this.interval);
     },
 
 }
@@ -156,14 +170,27 @@ function updateGameArea(){
     time -= 20
     
     if(time < 0) {
-        //myGameArea.canvas.remove();
+        endGame()
     }
     
 }
 
-function endGame(){
-    myGameArea.canvas.remove();
-
+async function endGame(){
+    myGameArea.stop();
+    document.getElementById("introimg").src = "https://celestialtater.github.io/sadface.png"
+    document.getElementById("energygoal").style.display = "none";
+    document.getElementById("energynum").style.display = "none";
+    document.getElementById("time").style.display = "none";
+    document.getElementById("energylv").innerHTML = "<b> GAME OVER! </b>"
+    await sleep(5000)
+    document.getElementById("introimg").src = "https://celestialtater.github.io/atom.png"
+    document.getElementById("start1").style.display = "inline-block"
+    document.getElementById("energylv").style.display = "none";
+    document.getElementById("intro").style.display = "block"
+    document.getElementById("physinfo").style.display = "block"
+    document.getElementById("introimg").style.display = "block"
+    document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!"
+    
 }
 
 function moveUp(obj){
