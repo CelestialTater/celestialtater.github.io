@@ -16,16 +16,24 @@ var electronEnergy = 0
 var photonCoords;
 var canvasRef;
 
+function gameIntro() {
+    document.getElementById("intro").innerHTML = "Pay close attention to this information! Determine how much energy you will need, then click the button!"
+    document.getElementById("physinfo").style.display = "none"
+    document.getElementById("introimg").src = "https://celestialtater.github.io/energylevels.png"
+    document.getElementById("energylv").innerHTML = "Energy Level: n=" + startingLevel
+    document.getElementById("energygoal").innerHTML = "Goal: n=" + goalLevel
+    document.getElementById("start1").style.display = "none"
+    document.getElementById("start2").style.display = "inline-block"
+}
+
 async function startGame(){
     await sleep(1000)
     //document.getElementById("introimg").src="http://celestialtater.github.io/electron.png";
-    document.getElementById("introimg").style.display = "none"
-    document.getElementById("start").style.display = "none"
+
+    document.getElementById("start2").style.display = "none"
     document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1] + " eV"
-    document.getElementById("energylv").innerHTML = "Energy Level: n=" + startingLevel
-    document.getElementById("energygoal").innerHTML = "Goal: n=" + goalLevel
-    document.getElementById("intro").style.display = "none"
-    document.getElementById("physinfo").style.display = "none"
+
+
     myGameArea.start()
     // ---- ACTUAL URLS ----
     icon = new component("icon", 30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
