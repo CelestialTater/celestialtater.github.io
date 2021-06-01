@@ -182,13 +182,13 @@ async function endGame(){
     document.getElementById("energynum").style.display = "none";
     document.getElementById("time").style.display = "none";
     document.getElementById("energylv").innerHTML = "<b> GAME OVER! </b>"
+    document.getElementById("introimg").style.display = "block"
     await sleep(5000)
     document.getElementById("introimg").src = "https://celestialtater.github.io/atom.png"
     document.getElementById("start1").style.display = "inline-block"
     document.getElementById("energylv").style.display = "none";
     document.getElementById("intro").style.display = "block"
     document.getElementById("physinfo").style.display = "block"
-    document.getElementById("introimg").style.display = "block"
     document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!"
     
 }
