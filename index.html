@@ -6,13 +6,15 @@
     </head>
     <title>Electron Mania</title>
     <body>
-        <img src="bucket.png" id="introimg" class="centerimg"></img>
+        <img src="atom.png" id="introimg" class="centerimg"></img>
         <p id="intro"><b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!</p>
         <div class = "centerbtn">
             <button id = "start" onclick="startGame()" class="button1"> I'm Ready! </button>
         </div>
-        <p id="physinfo"><b>About the Bohr Model:</b><br> The Bohr model of the atom...... </p>
+        <p id="physinfo"><b>About the Bohr Model:</b><br> The Bohr model of the atom was created by Niels Bohr in 1913. Bohr based his model off a formula developed by Johann Jacob Balmer that could be used to calculate wavelengths in the hydrogen spectrum. </p>
+        <h1 id = "energynum"></h1>
         <h1 id = "energylv"></h1>
+        <h1 id = "energygoal"></h1>
         <h2 id = "time"></h2>
         <script src="game.js"></script>
     </body>

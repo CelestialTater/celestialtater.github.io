@@ -43,6 +43,12 @@ p{
     width: 15%;
     margin: auto;
 }
+.button1:hover{
+    background-color: rgb(106, 212, 0);
+}
+.button1:active{
+    background-color: lightgreen;
+}
 .centerbtn{
     display:flex;
     align-items: center;
@@ -52,4 +58,8 @@ p{
     margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+.energyimg{
+    display:block;
+    width:20%;
 }

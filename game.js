@@ -1,4 +1,4 @@
-//VER: 0.1
+//VER: 0.2
 var icon;
 var p1X = Math.floor(Math.random() * 350 + 10);
 var p1Y = Math.floor(Math.random() * 350 + 10);
@@ -6,8 +6,12 @@ var p2X = Math.floor(Math.random() * 350 + 10);
 var p2Y = Math.floor(Math.random() * 350 + 10);
 var p3X = Math.floor(Math.random() * 350 + 10);
 var p3Y = Math.floor(Math.random() * 350 + 10);
+
+var startingLevel = Math.ceil(Math.random() * 5)
+var goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
+var energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
 var count = 0;
-var time = 0;
+var time = 10000;
 var electronEnergy = 0
 var photonCoords;
 var canvasRef;
@@ -17,8 +21,11 @@ async function startGame(){
     //document.getElementById("introimg").src="http://celestialtater.github.io/electron.png";
     document.getElementById("introimg").style.display = "none"
     document.getElementById("start").style.display = "none"
-    document.getElementById("energylv").innerHTML = "Energy Level: 0 eV"
+    document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1] + " eV"
+    document.getElementById("energylv").innerHTML = "Energy Level: n=" + startingLevel
+    document.getElementById("energygoal").innerHTML = "Goal: n=" + goalLevel
     document.getElementById("intro").style.display = "none"
+    document.getElementById("physinfo").style.display = "none"
     myGameArea.start()
     // ---- ACTUAL URLS ----
     icon = new component("icon", 30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
@@ -131,18 +138,23 @@ function updateGameArea(){
              c[2].delete()
              c[2].update()
              photonCoords.splice(photonCoords.indexOf(c), 1)
-             document.getElementById("energylv").innerHTML = "Energy Level: " + electronEnergy + " eV"
+             document.getElementById("energynum").innerHTML = "Energy Level: " + electronEnergy + " eV"
              console.log(electronEnergy)
         }
     }
     document.getElementById("time").innerHTML = "Time: " + time + "ms"
     count++
-    time += 20
+    time -= 20
     
-    if(time > 1000) {
+    if(time < 0) {
         //myGameArea.canvas.remove();
     }
     
+}
+
+function endGame(){
+    myGameArea.canvas.remove();
+
 }
 
 function moveUp(obj){
