@@ -1,4 +1,4 @@
-//VER: 0.2
+//VER: 0.21
 var icon;
 var p1X = Math.floor(Math.random() * 350 + 10);
 var p1Y = Math.floor(Math.random() * 350 + 10);
@@ -215,7 +215,6 @@ function randomMove(obj) {
     var valid = true;
     xdist = Math.floor(Math.random() * 21 - 10)
     ydist = Math.floor(Math.random() * 21 - 10)
-    console.log(obj.id)
     for(var b = 0; b < photonCoords.length; b++) {
         if(obj.id == photonCoords[b][2].id){
             loc = b;
