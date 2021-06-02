@@ -1,6 +1,11 @@
 body{
     background-color: black;
 }
+a{
+    font-family: monospace;
+    color:chartreuse;
+    font-size: 20px;
+}
 canvas{
     padding-left: 0;
     padding-right: 0;
@@ -27,8 +32,18 @@ h2{
 p{
     color:chartreuse;
     font-family: monospace;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
+}
+li{
+    color:chartreuse;
+    font-family: monospace;
+    font-size: 20px;
+    margin: 10px;
+}
+ul{
+    text-align: center;
+    list-style: inside;
 }
 .button1{
     font-family: monospace;
