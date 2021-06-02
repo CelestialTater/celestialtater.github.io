@@ -13,15 +13,23 @@ var energyLevelArray;
 var count;
 var time;
 var electronEnergy;
-var photonCoords;
+var photonCoords = [];
+var photonEnergies = []
 var canvasRef;
+var level = 1;
+var times = [10000, 8000, 6000, 4000, 3000]
 
 function gameIntro() {
     startingLevel = Math.ceil(Math.random() * 5)
     goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
     energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
+    photonEnergies.push(-(energyLevelArray[startingLevel-1] - energyLevelArray[goalLevel-1]).toFixed(2))
+    for(var k = 0; k < level+1; k++) {
+        photonEnergies.push((Math.random() * 10).toFixed(2));
+    } 
+    console.log(photonEnergies)
     count = 0;
-    time = 10000;
+    time = times[level-1];
     electronEnergy = energyLevelArray[startingLevel-1]
     document.getElementById("energylv").style.display = "block";
     document.getElementById("energygoal").style.display = "block";
@@ -46,17 +54,17 @@ async function startGame(){
 
 
     myGameArea.start()
-    // ---- ACTUAL URLS ----
     icon = new component("icon", 30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
-    photon1 = new component("photon1", 30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
-    photon2 = new component("photon2", 30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
-    photon3 = new component("photon3", 30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
+    for(var i = 0; i < level+2; i++) {
+        var x = Math.floor(Math.random() * 350 + 10);
+        var y = Math.floor(Math.random() * 350 + 10);
+        photon1 = new component("photon" + i, 30, 30, "https://celestialtater.github.io/photonwave.png", x, y, "image", photonEnergies[i]);
+        photonCoords.push([x, y, photon1])
+    }
+    // photon1 = new component("photon1", 30, 30, "https://celestialtater.github.io/photonwave.png", p1X, p1Y, "image", 3);
+    // photon2 = new component("photon2", 30, 30, "https://celestialtater.github.io/photonwave.png", p2X, p2Y, "image", 4);
+    // photon3 = new component("photon3", 30, 30, "https://celestialtater.github.io/photonwave.png", p3X, p3Y, "image", 5);
     
-    photonCoords = [
-        [p1X, p1Y, photon1],
-        [p2X, p2Y, photon2],
-        [p3X, p3Y, photon3]
-    ]
 }
 
 let myGameArea = {
@@ -109,9 +117,9 @@ function component(id, width, height, color, x, y, type="default", energy=0){
         ctx = myGameArea.context;
         if(type == "image"){
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-            ctx.font = "20px Arial"
+            ctx.font = "16px Arial"
             if(energy != 0) {
-                ctx.fillText(energy, this.x + 10, this.y+20)
+                ctx.fillText(energy, this.x, this.y+20)
             }
         }else{
             ctx.fillStyle = color;
@@ -136,14 +144,14 @@ function updateGameArea(){
     icon.speedX = 0;
     icon.speedY = 0;
     if(count % 7 == 0) {
-        randomMove(photon1)
-        randomMove(photon2)
-        randomMove(photon3)
-        
+        for(p of photonCoords){
+            randomMove(p[2])
+        }
+
     }
-    photon1.update()
-    photon2.update()
-    photon3.update()
+    for(y of photonCoords){
+        y[2].update()
+    }
     if (myGameArea.keys && myGameArea.keys[37] && icon.x > 10) {icon.speedX = -2; }
     if (myGameArea.keys && myGameArea.keys[39] && icon.x < 360) {icon.speedX = 2; }
     if (myGameArea.keys && myGameArea.keys[38] && icon.y > 10) {icon.speedY = -2; }
@@ -152,12 +160,11 @@ function updateGameArea(){
     icon.update();
     for(var c of photonCoords) {
         if(icon.x - c[0] < 10 && icon.x - c[0] > -10 && icon.y - c[1] < 10 && icon.y - c[1] > -10) {
-            electronEnergy += c[2].energy
-             c[2].delete()
-             c[2].update()
-             photonCoords.splice(photonCoords.indexOf(c), 1)
-             document.getElementById("energynum").innerHTML = "Current Energy: " + electronEnergy.toFixed(2) + " eV"
-             console.log(electronEnergy)
+            if(c[2].energy == photonEnergies[0]) {
+                nextLevel()
+            }else{
+                endGame()
+            }
         }
     }
     document.getElementById("time").innerHTML = "Time: " + time + "ms"
@@ -171,7 +178,11 @@ function updateGameArea(){
 }
 
 async function endGame(){
+    photonEnergies = [];
+    photonCoords = [];
+    myGameArea.clear();
     myGameArea.stop();
+    level = 1;
     document.getElementById("introimg").src = "https://celestialtater.github.io/sadface.png"
     document.getElementById("energygoal").style.display = "none";
     document.getElementById("energynum").style.display = "none";
@@ -184,8 +195,23 @@ async function endGame(){
     document.getElementById("energylv").style.display = "none";
     document.getElementById("intro").style.display = "block"
     document.getElementById("physinfo").style.display = "block"
-    document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!"
+    document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron."
     
+}
+async function nextLevel() {
+    myGameArea.stop();
+    photonEnergies = []
+    photonCoords = []
+    document.getElementById("introimg").src = "https://celestialtater.github.io/blobsmile.png"
+    document.getElementById("energygoal").style.display = "none";
+    document.getElementById("energynum").style.display = "none";
+    document.getElementById("time").style.display = "none";
+    document.getElementById("intro").style.display = "block"
+    document.getElementById("energylv").innerHTML = "<b> YOU DID IT! Time for the next level. </b>"
+    document.getElementById("introimg").style.display = "block"
+    level++;
+    await sleep(5000)
+    gameIntro();
 }
 
 function moveUp(obj){
