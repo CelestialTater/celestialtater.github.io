@@ -1,0 +1,80 @@
+body{
+    background-color: black;
+}
+a{
+    font-family: monospace;
+    color:chartreuse;
+    font-size: 20px;
+}
+canvas{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+    border: 1px solid #d3d3d3;
+    background-color: #c1c1c4;
+}
+h1{
+    margin:auto;
+    width: 100%;
+    text-align: center;
+    font-family: monospace;
+    color:chartreuse;
+}
+h2{
+    margin:auto;
+    width:100%;
+    text-align: center;
+    font-family: monospace;
+    color:chartreuse;
+}
+p{
+    color:chartreuse;
+    font-family: monospace;
+    font-size: 18px;
+    text-align: center;
+}
+li{
+    color:chartreuse;
+    font-family: monospace;
+    font-size: 20px;
+    margin: 10px;
+}
+ul{
+    text-align: center;
+    list-style: inside;
+}
+.button1{
+    font-family: monospace;
+    background-color:chartreuse;
+    border-radius: 12px;
+    border: none;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 15%;
+    margin: auto;
+}
+.button1:hover{
+    background-color: rgb(106, 212, 0);
+}
+.button1:active{
+    background-color: lightgreen;
+}
+.centerbtn{
+    display:flex;
+    align-items: center;
+}
+.centerimg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18%;
+}
+.energyimg{
+    display:block;
+    width:20%;
+}

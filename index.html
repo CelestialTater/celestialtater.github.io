@@ -6,7 +6,13 @@
     </head>
     <title>Electron Mania</title>
     <body>
-        <a href="https://celestialtater.github.io/tutorial" id="tutoriallink">Go to Tutorial</a>
+        <div>
+            <a href="https://celestialtater.github.io/tutorial" id="tutoriallink">Go to Tutorial</a>
+        </div>
+        <div>
+            <a href="https://celestialtater.github.io/bohrmodel" id="physlink">Learn about the Bohr Model</a>
+        </div>
+        
         <img src="atom.png" id="introimg" class="centerimg"></img>
         <p id="intro"><b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron.</p>
         <h1 id = "energynum"></h1>
@@ -19,7 +25,7 @@
         <div class = "centerbtn">
             <button id = "start2" onclick="startGame()" class="button1" style="display: none;"> I'm Ready! </button>
         </div>
-        <p id="physinfo"><b>About the Bohr Model:</b><br> The Bohr model of the atom was created by Niels Bohr in 1913. Bohr based his model off a formula developed by Johann Jacob Balmer that could be used to calculate wavelengths in the hydrogen spectrum. <br><br> Bohr's model is imporant because it introduced the idea that electron orbits and energy levels in the atom are <b>quantized.</b> This means that they can only be specific values. <br><br> Bohr's model states that in order for an electron to move from one energy level to another, it must absorb or release energy equal to the difference between the two levels. This is what you will be doing in this game: absorbing the appropriate amount of energy to reach the desired level! </p>
+        <p id="physinfo">For a brief explanation and tutorial for the game, click the first link in the corner. <br><br> For information about the Bohr model, click the second link.</p>
 
         <script src="game.js"></script>
     </body>
