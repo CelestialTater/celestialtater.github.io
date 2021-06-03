@@ -29,21 +29,34 @@ h2{
     font-family: monospace;
     color:chartreuse;
 }
+h3{
+    margin:auto;
+    width:100%;
+    text-align: center;
+    font-family: monospace;
+    color:chartreuse;
+}
 p{
     color:chartreuse;
     font-family: monospace;
     font-size: 18px;
     text-align: center;
+    padding-left: 100px;
+    padding-right:100px;
 }
 li{
     color:chartreuse;
     font-family: monospace;
-    font-size: 20px;
+    font-size: 18px;
     margin: 10px;
 }
 ul{
     text-align: center;
     list-style: inside;
+}
+hr{
+    border: 3px solid chartreuse;
+    width:75%;
 }
 .button1{
     font-family: monospace;
