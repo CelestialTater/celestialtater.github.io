@@ -1,12 +1,5 @@
-//VER: 0.21
+//Declare initial variables
 var icon;
-var p1X = Math.floor(Math.random() * 350 + 10);
-var p1Y = Math.floor(Math.random() * 350 + 10);
-var p2X = Math.floor(Math.random() * 350 + 10);
-var p2Y = Math.floor(Math.random() * 350 + 10);
-var p3X = Math.floor(Math.random() * 350 + 10);
-var p3Y = Math.floor(Math.random() * 350 + 10);
-
 var startingLevel;
 var goalLevel;
 var energyLevelArray;
@@ -20,17 +13,25 @@ var level = 1;
 var times = [10000, 8500, 7000, 6000, 5000]
 
 function gameIntro() {
+    //randomly generate starting energy lv and goal energy lv
     startingLevel = Math.ceil(Math.random() * 5)
     goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
     energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
+
+    //push the correct energy amount to the energies array
     photonEnergies.push(-(energyLevelArray[startingLevel-1] - energyLevelArray[goalLevel-1]).toFixed(2))
+    //randomly generate the rest of the energy amounts
     for(var k = 0; k < level+1; k++) {
         photonEnergies.push((Math.random() * 10).toFixed(2));
     } 
     console.log(photonEnergies)
     count = 0;
+    //set the correct time based on the level
     time = times[level-1];
+    //set the electron energy to the starting energy
     electronEnergy = energyLevelArray[startingLevel-1]
+
+    //update the UI to show the energy diagram
     document.getElementById("energylv").style.display = "block";
     document.getElementById("energygoal").style.display = "block";
     document.getElementById("intro").innerHTML = "Pay close attention to this information! Determine how much energy you will need, then click the button!"
@@ -46,6 +47,7 @@ function gameIntro() {
 
 async function startGame(){
     await sleep(1000)
+    //update the UI to the game field
     document.getElementById("intro").style.display = "none"
     document.getElementById("introimg").style.display = "none"
     document.getElementById("start2").style.display = "none"
@@ -53,9 +55,11 @@ async function startGame(){
     document.getElementById("time").style.display = "block"
     document.getElementById("energynum").innerHTML = "Current Energy: " + energyLevelArray[startingLevel-1].toFixed(2) + " eV"
 
-
+    //start the game area
     myGameArea.start()
+    //create the player icon
     icon = new component("icon", 30, 30, "https://celestialtater.github.io/electron.png", 10, 190, "image");
+    //create photons with the amount based on level
     for(var i = 0; i < level+2; i++) {
         var x = Math.floor(Math.random() * 350 + 10);
         var y = Math.floor(Math.random() * 350 + 10);
@@ -67,6 +71,7 @@ async function startGame(){
 
 let myGameArea = {
     canvas: document.createElement("canvas"),
+    //set up the canvas
     start: function(){
         this.canvas.width = 400,
         this.canvas.height = 400,
@@ -88,16 +93,20 @@ let myGameArea = {
             myGameArea.keys[e.keyCode] = (e.type == "keydown");
         })
     },
+    //clear the canvas
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
+    //delete the canvas and stop the repeating interval
     stop: function() {
         this.canvas.remove();
         clearInterval(this.interval);
     },
 
 }
+//create a component function
 function component(id, width, height, color, x, y, type="default", energy=0){
+    //component variables
     this.id = id;
     this.width = width;
     this.height = height;
@@ -106,11 +115,13 @@ function component(id, width, height, color, x, y, type="default", energy=0){
     this.speedX = 0;
     this.speedY = 0;
     this.energy = energy;
+    //add an image if specified
     if(type == "image"){
         this.image = new Image();
         this.image.src = color;
         
     }
+    //function to update the component on the canvas
     this.update = function(){
         ctx = myGameArea.context;
         if(type == "image"){
@@ -124,10 +135,12 @@ function component(id, width, height, color, x, y, type="default", energy=0){
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
     }
+    //function to change position of component
     this.newPos = function(){
         this.x += this.speedX;
         this.y += this.speedY;
     }
+    //function to "delete" a component
     this.delete = function(){
         this.x = 600
         this.y = 600
@@ -176,11 +189,15 @@ function updateGameArea(){
 }
 
 async function endGame(){
+    //reset arrays so that the game is reset
     photonEnergies = [];
     photonCoords = [];
+    //stop the game area
     myGameArea.clear();
     myGameArea.stop();
+    //reset the level
     level = 1;
+    //update the UI
     document.getElementById("introimg").src = "https://celestialtater.github.io/sadface.png"
     document.getElementById("energygoal").style.display = "none";
     document.getElementById("energynum").style.display = "none";
@@ -199,14 +216,18 @@ async function endGame(){
     
 }
 async function nextLevel() {
+    //stop gamearea
     myGameArea.stop();
+    //reset arrays for next level
     photonEnergies = []
     photonCoords = []
+    //update UI
     document.getElementById("introimg").src = "https://celestialtater.github.io/blobsmile.png"
     document.getElementById("energygoal").style.display = "none";
     document.getElementById("energynum").style.display = "none";
     document.getElementById("time").style.display = "none";
 
+    //update UI, if all 5 rounds have been beaten then end the game.
     if(level < 5){
         document.getElementById("energylv").innerHTML = "<b> YOU DID IT! Time for the next level. </b>"
         document.getElementById("introimg").style.display = "block"
@@ -231,7 +252,7 @@ async function nextLevel() {
 
     
 }
-
+//functions to move different game elements. 
 function moveUp(obj){
     obj.speedY--;
 }
@@ -248,12 +269,14 @@ function clearmove(obj){
     obj.speedX = 0; 
     obj.speedY = 0; 
 }
+//randomly move the object
 function randomMove(obj) {
     var loc;
     var hit = false;
     var valid = true;
     xdist = Math.floor(Math.random() * 21 - 10)
     ydist = Math.floor(Math.random() * 21 - 10)
+    //ensure the object being moved is a valid photon
     for(var b = 0; b < photonCoords.length; b++) {
         if(obj.id == photonCoords[b][2].id){
             loc = b;
@@ -263,6 +286,7 @@ function randomMove(obj) {
     if(!hit) {
         valid = false;
     }
+    //ensure that the move is valid, then make the move
     if(valid) {
         for(t = 0; t < 5; t++){
             if(xdist >= 0) {
