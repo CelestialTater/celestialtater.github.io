@@ -16,7 +16,7 @@ function gameIntro() {
     //randomly generate starting energy lv and goal energy lv
     startingLevel = Math.ceil(Math.random() * 5)
     goalLevel = Math.floor(Math.random() * (6 - (startingLevel+1) + 1)) + (startingLevel+1);
-    energyLevelArray = [-13.60, -3.40, -1.51, -0.85, -0.54, -0.38]
+    energyLevelArray = [-12.00, -3.00, -1.50, -0.80, -0.60, -0.50]
 
     //push the correct energy amount to the energies array
     photonEnergies.push(-(energyLevelArray[startingLevel-1] - energyLevelArray[goalLevel-1]).toFixed(2))
@@ -205,7 +205,7 @@ async function endGame(){
     document.getElementById("energylv").innerHTML = "<b> GAME OVER! </b>"
     document.getElementById("introimg").style.display = "block"
     await sleep(5000)
-    document.getElementById("introimg").src = "https://celestialtater.github.io/atom.png"
+    document.getElementById("introimg").src = "https://celestialtater.github.io/bohratom2.png"
     document.getElementById("tutoriallink").style.display = "block"
     document.getElementById("physlink").style.display = "block"
     document.getElementById("start1").style.display = "inline-block"
@@ -240,7 +240,7 @@ async function nextLevel() {
         document.getElementById("introimg").style.display = "block"
         level = 1;
         await sleep(5000)
-        document.getElementById("introimg").src = "https://celestialtater.github.io/atom.png"
+        document.getElementById("introimg").src = "https://celestialtater.github.io/bohratom2.png"
         document.getElementById("start1").style.display = "inline-block"
         document.getElementById("energylv").style.display = "none";
         document.getElementById("intro").style.display = "block"
