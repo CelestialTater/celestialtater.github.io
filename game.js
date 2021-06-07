@@ -19,7 +19,7 @@ function gameIntro() {
     energyLevelArray = [-12.00, -3.00, -1.50, -0.80, -0.60, -0.50]
 
     //push the correct energy amount to the energies array
-    photonEnergies.push(-(energyLevelArray[startingLevel-1] - energyLevelArray[goalLevel-1]).toFixed(3))
+    photonEnergies.push(-(energyLevelArray[startingLevel-1] - energyLevelArray[goalLevel-1]).toFixed(2) + "0")
     //randomly generate the rest of the energy amounts
     for(var k = 0; k < level+1; k++) {
         photonEnergies.push((Math.random() * 10).toFixed(2));
