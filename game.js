@@ -212,7 +212,7 @@ async function endGame(){
     document.getElementById("energylv").style.display = "none";
     document.getElementById("intro").style.display = "block"
     document.getElementById("physinfo").style.display = "block"
-    document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron."
+    document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron.<br> For this game, we will be using a fantastical element known as \"Colium\""
     
 }
 async function nextLevel() {
@@ -247,7 +247,7 @@ async function nextLevel() {
         document.getElementById("physinfo").style.display = "block"
         document.getElementById("tutoriallink").style.display = "block"
         document.getElementById("physlink").style.display = "block"
-        document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron."
+        document.getElementById("intro").innerHTML = "<b>Welcome to Electron Mania!</b><br> In this game you will control an electron in Neils Bohr's model of the atom.<br> Your goal is to reach the correct electron to reach the requested energy level before time runs out!<br> Use the arrow keys to control the electron.<br> For this game, we will be using a fantastical element known as \"Colium\""
     }
 
     
