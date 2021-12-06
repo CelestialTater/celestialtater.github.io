@@ -1,0 +1,51 @@
+body{
+    background-color: black;
+}
+h1{
+    margin:auto;
+    width: 100%;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color:bisque;
+    text-decoration: underline;
+}
+p{
+    color:white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-align: center;
+    margin:50px;
+}
+.button1{
+    font-family: 'Times New Roman', Times, serif;
+    background-color:lightgray;
+    border-radius: 12px;
+    border: 3px solid darkgray;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 20%;
+    margin: auto;
+}
+.button1:hover{
+    background-color:darkgrey;
+}
+.button1:active{
+    background-color: white;
+}
+.centerbtn{
+    display:flex;
+    align-items: center;
+}
+.centerimg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18%;
+}
+.qn{
+    font-weight: bold;
+    font-style: italic;
+}
